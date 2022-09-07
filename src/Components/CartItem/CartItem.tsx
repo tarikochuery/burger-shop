@@ -3,7 +3,7 @@ import { CartItemStyle } from "./style"
 
 interface Props {
   item: IProduct,
-  removeItem: (id: number) => void
+  removeItem: (id: number | string) => void
 }
 
 export const CartItem:React.FC<Props> = ({ item, removeItem }) => (
