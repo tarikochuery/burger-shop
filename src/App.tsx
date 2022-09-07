@@ -4,10 +4,29 @@ import { ProductsList } from './Components/ProductsList/ProductsList'
 import { IProduct, getProducts } from './services/api/getProducts'
 import { Header } from './Components/Header/Header'
 import { Cart } from './Components/Cart/Cart'
+import { AppStyle } from './styles/app.style'
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([])
   const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([])
+  const [cartItems, setCartItems] = useState<IProduct[]>([])
+
+  const cartActions = {
+    addItem: (product: IProduct) => {
+      for (const item of cartItems) {
+        if (item.id === product.id) {
+          return
+        }
+      }
+      setCartItems([...cartItems, product])
+    },
+    removeItem: (id: number) => {
+      setCartItems(cartItems.filter(item => item.id !== id))
+    },
+    removeAll: () => {
+      setCartItems([])
+    }
+  }
 
   const filterProducts = (filter: string | undefined) => {
     if(!filter) {
@@ -15,7 +34,7 @@ function App() {
       return
     }
 
-    setFilteredProducts(products.filter(product => product.name.toLocaleLowerCase().includes(filter) || product.category.toLocaleLowerCase().includes(filter)))
+    setFilteredProducts(products.filter(product => product.name.toLowerCase().includes(filter) || product.category.toLowerCase().includes(filter)))
     return
   }
 
@@ -35,18 +54,17 @@ function App() {
   return (
     <div>
       <Header filterProducts={filterProducts}/>
-      <div style={{padding: '25px 100px',
-                   display: 'flex'}}>
+      <AppStyle>
         <ProductsList>
           {filteredProducts.length !== 0 
             ? 
-              filteredProducts.map(product => <Product product={product} key={product.id}/>)
+              filteredProducts.map(product => <Product cartActions={cartActions} product={product} key={product.id}/>)
             :
               <p>loading...</p>
           }
         </ProductsList>
-        <Cart />
-      </div>
+        <Cart cartItems={cartItems} cartActions={cartActions} />
+      </AppStyle>
     </div>
   )
 }

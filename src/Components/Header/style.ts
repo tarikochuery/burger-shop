@@ -7,4 +7,12 @@ export const HeaderStyle = styled.header`
   justify-content: space-between;
   align-items: center;
   background-color: #eee;
+
+  @media(max-width: 630px) {
+    flex-direction: column;
+    width: 100%;
+    height: 110px;
+    padding: 10px 5px;
+    min-width: 300px;
+  }
 `

@@ -6,4 +6,8 @@ export const ProductsListStyle = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+
+  @media(max-width: 780px) {
+    margin-bottom: 10px;
+  }
 `

@@ -25,4 +25,9 @@ export const SearchBarStyle = styled.div`
     border-radius: 10px;
     cursor: pointer;
   }
+
+  @media(max-width: 630px) {
+    width: 100%;
+    min-width: 300px;
+  }
 `

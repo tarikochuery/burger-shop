@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const CartStyle = styled.div`
-  width: 25%;
+  width: 30%;
+  min-width: 300px;
 
   .cart-header {
     background-color: #51A65D;
@@ -11,17 +12,47 @@ export const CartStyle = styled.div`
     border-top-right-radius: 5px;
   }
 
-  .cart-items {
+  .empty-cart {
     background-color: #eee;
     text-align: center;
     padding: 40px;
   }
 
-  .cart-items h3 {
+  .empty-cart h3 {
     margin-bottom: 10px;
   }
 
-  .cart-items p{
+  .empty-cart p{
     color: #ccc;
+  }
+
+  .cart-items {
+    padding: 20px 10px;
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .cart-items > button {
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer
+  }
+
+  @media(max-width: 780px) {
+    width: 100%;
   }
 `
