@@ -5,6 +5,7 @@ import { IProduct, getProducts } from './services/api/getProducts'
 import { Header } from './Components/Header/Header'
 import { Cart } from './Components/Cart/Cart'
 import { AppStyle } from './styles/app.style'
+import { v4 as uuidv4 } from 'uuid'
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([])
@@ -13,14 +14,11 @@ function App() {
 
   const cartActions = {
     addItem: (product: IProduct) => {
-      for (const item of cartItems) {
-        if (item.id === product.id) {
-          return
-        }
-      }
-      setCartItems([...cartItems, product])
+      const cartItem = {...product, id: uuidv4()}
+      
+      setCartItems([...cartItems, cartItem])
     },
-    removeItem: (id: number) => {
+    removeItem: (id: string | number) => {
       setCartItems(cartItems.filter(item => item.id !== id))
     },
     removeAll: () => {

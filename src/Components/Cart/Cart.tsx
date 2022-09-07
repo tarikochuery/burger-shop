@@ -5,7 +5,7 @@ import { CartStyle } from "./style"
 
 export interface ICartActions {
   addItem: (item: IProduct) => void,
-  removeItem: (id: number) => void,
+  removeItem: (id: number | string) => void,
   removeAll: () => void
 }
 

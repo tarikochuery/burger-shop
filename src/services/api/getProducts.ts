@@ -1,7 +1,7 @@
 import data from '../db/products.json'
 
 export interface IProduct {
-  id: number,
+  id: number | string,
   name: string,
   category: string,
   price: number,
