@@ -7,6 +7,17 @@ import { Cart } from './Components/Cart/Cart'
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([])
+  const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([])
+
+  const filterProducts = (filter: string | undefined) => {
+    if(!filter) {
+      setFilteredProducts(products)
+      return
+    }
+
+    setFilteredProducts(products.filter(product => product.name.toLocaleLowerCase().includes(filter) || product.category.toLocaleLowerCase().includes(filter)))
+    return
+  }
 
   useEffect(() => {
     const getData = async () => {
@@ -15,17 +26,21 @@ function App() {
     }
 
     getData()
-  }, [getProducts])
+  }, [])
+
+  useEffect(() => {
+    setFilteredProducts(products)
+  }, [products])
 
   return (
     <div>
-      <Header />
+      <Header filterProducts={filterProducts}/>
       <div style={{padding: '25px 100px',
                    display: 'flex'}}>
         <ProductsList>
-          {products.length !== 0 
+          {filteredProducts.length !== 0 
             ? 
-              products.map(product => <Product product={product} key={product.id}/>)
+              filteredProducts.map(product => <Product product={product} key={product.id}/>)
             :
               <p>loading...</p>
           }
